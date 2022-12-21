@@ -15,9 +15,11 @@ const Menu = ({history}) => {
         <nav className="navbar navbar-expand-lg bg-dark">
             <div className="container">
                 <NavLink className="navbar-brand p-0" to="/"><img src={require('../images/Logo/logo.png')} alt="LOGO" style={{ width: "100px" }} /></NavLink>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-            </button>
+                <div className="navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+            </div>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
                         <li className="nav-item">

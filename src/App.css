@@ -7,9 +7,12 @@
 p {
     font-family: 'Montserrat', sans-serif;
 }
-.btn:focus, .form-control:focus {
+
+.btn:focus,
+.form-control:focus {
     box-shadow: none;
 }
+
 /* Navbar part css start */
 
 .navbar-expand-lg .navbar-nav .nav-link {
@@ -23,6 +26,14 @@ p {
     color: tomato !important;
 }
 
+
+.navbar-toggler div {
+    width: 30px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    border-radius: 10px;
+  }
 /* Navbar part css end */
 
 /* Login part css start */
@@ -56,7 +67,8 @@ form.loginForm h1:before {
     background: #212529;
 }
 
-.form-control.is-invalid, .was-validated .form-control:invalid {
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
     box-shadow: none !important;
 }
 
