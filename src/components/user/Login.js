@@ -31,7 +31,7 @@ const Login = () => {
         loader.className = "fa fa-refresh fa-spin";
         registerBtn.textContent = " Processing...";
         registerBtn.prepend(loader);
-        
+
         setValues({
             ...values,
             disabled: true

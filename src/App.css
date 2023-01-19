@@ -40,7 +40,6 @@ p {
 
 form.loginForm {
     border: 1px solid #d0d0d0;
-    margin-top: 30px;
     border-radius: 8px;
     padding-top: 10px;
     padding-bottom: 20px;
@@ -111,3 +110,14 @@ form.loginForm h1:before {
 }
 
 /* 404 bit found css end */
+
+/* Admin Dashboard css start */
+.actionBtn {
+    font-size: 21px;
+}
+.createBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+/* Admin Dashboard css end */

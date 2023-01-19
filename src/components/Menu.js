@@ -12,7 +12,7 @@ const isActive = (history, path) => {
 
 const Menu = ({history}) => {
     return (
-        <nav className="navbar navbar-expand-lg bg-dark">
+        <nav className="navbar navbar-expand-lg bg-dark mb-5">
             <div className="container">
                 <NavLink className="navbar-brand p-0" to="/"><img src={require('../images/Logo/logo.png')} alt="LOGO" style={{ width: "100px" }} /></NavLink>
                 <div className="navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

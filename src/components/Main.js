@@ -1,6 +1,9 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import AdminDashboard from './admin/AdminDashboard';
+import CreateCategory from './admin/Category/CreateCategory';
+import EditCategory from './admin/Category/EditCategory';
+import ShowCategory from './admin/Category/ShowCategory';
 import Home from './Home/Home';
 import PageNotFound from './PageNotFound';
 import AdminRoute from './protectedRoutes/AdminRoute';
@@ -21,6 +24,15 @@ const Main = () => {
                 </PrivateRoute>
                 <AdminRoute path='/admin/dashboard' exact>
                     <AdminDashboard />
+                </AdminRoute>
+                <AdminRoute path='/show/category' exact>
+                    <ShowCategory />
+                </AdminRoute>
+                <AdminRoute path='/create/category' exact>
+                    <CreateCategory />
+                </AdminRoute>
+                <AdminRoute path='/update/category/:id' exact>
+                    <EditCategory />
                 </AdminRoute>
                 <Route path='*' component={PageNotFound} />
             </Switch>

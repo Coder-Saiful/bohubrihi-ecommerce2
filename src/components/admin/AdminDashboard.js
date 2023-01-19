@@ -12,10 +12,10 @@ const AdminDashboard = () => {
                 <h4 className="card-header">User Links</h4>
                 <ul className="list-group">
                     <li className="list-group-item">
-                        <NavLink className="nav-link" to="#">Create Category</NavLink>
+                        <NavLink className="nav-link" to="/show/category">Category</NavLink>
                     </li>
                     <li className="list-group-item">
-                        <NavLink className="nav-link" to="#">Create Product</NavLink>
+                        <NavLink className="nav-link" to="#">Product</NavLink>
                     </li>
                 </ul>
             </div>
