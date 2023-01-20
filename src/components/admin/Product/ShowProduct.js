@@ -104,7 +104,7 @@ const ShowProduct = () => {
                     </div>
                     
                     
-                    <div className="categoryTable">
+                    <div className="categoryTable overflow-auto">
                     <table className="table table-bordered table-hover">
                         <thead className='table-secondary'>
                             <tr>

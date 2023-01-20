@@ -115,12 +115,12 @@ const EditProduct = () => {
     }
 
     return (
-        <Layout title="Create Product" classname="container">
+        <Layout title="Update Product" classname="container">
             <ToastContainer />
             <div className="row">
                 <div className="col-lg-7 col-md-10 m-auto">
                     <form className='loginForm' onSubmit={handleSubmit}>
-                        <h1>Create Product</h1>
+                        <h1>Update Product</h1>
                         <div className="mb-3">
                             <label className="form-label">Product Name:</label>
                             <input type="text" className={`form-control`} name='name' value={name} onChange={handleChange} />
