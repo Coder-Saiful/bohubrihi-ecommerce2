@@ -4,6 +4,10 @@ import AdminDashboard from './admin/AdminDashboard';
 import CreateCategory from './admin/Category/CreateCategory';
 import EditCategory from './admin/Category/EditCategory';
 import ShowCategory from './admin/Category/ShowCategory';
+import CreateProduct from './admin/Product/CreateProduct';
+import EditProduct from './admin/Product/EditProduct';
+import ProductDetails from './admin/Product/ProductDetails';
+import ShowProduct from './admin/Product/ShowProduct';
 import Home from './Home/Home';
 import PageNotFound from './PageNotFound';
 import AdminRoute from './protectedRoutes/AdminRoute';
@@ -33,6 +37,18 @@ const Main = () => {
                 </AdminRoute>
                 <AdminRoute path='/update/category/:id' exact>
                     <EditCategory />
+                </AdminRoute>
+                <AdminRoute path='/show/product' exact>
+                    <ShowProduct />
+                </AdminRoute>
+                <AdminRoute path='/create/product' exact>
+                    <CreateProduct />
+                </AdminRoute>
+                <AdminRoute path='/show/product/:id' exact>
+                    <ProductDetails />
+                </AdminRoute>
+                <AdminRoute path='/update/product/:id' exact>
+                    <EditProduct />
                 </AdminRoute>
                 <Route path='*' component={PageNotFound} />
             </Switch>

@@ -2,23 +2,14 @@ import React from 'react';
 import Layout from '../Layout';
 import { NavLink } from 'react-router-dom';
 import { userInfo } from '../../utils/auth';
+import SideNav from './SideNav';
 
 const AdminDashboard = () => {
     const {name, email, role} = userInfo();
     
     const UserLinks = () => {
         return (
-            <div className="card mb-4">
-                <h4 className="card-header">User Links</h4>
-                <ul className="list-group">
-                    <li className="list-group-item">
-                        <NavLink className="nav-link" to="/show/category">Category</NavLink>
-                    </li>
-                    <li className="list-group-item">
-                        <NavLink className="nav-link" to="#">Product</NavLink>
-                    </li>
-                </ul>
-            </div>
+            <SideNav />
         )
     };
 
