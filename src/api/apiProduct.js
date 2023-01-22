@@ -9,8 +9,8 @@ export const createProduct = (token, data) => {
     });
 }
 
-export const getProducts = () => {
-    return axios.get(`${API}/product`, {
+export const getProducts = (sortBy, order, limit) => {
+    return axios.get(`${API}/product?sortBy=${sortBy}&order=${order}&limit=${limit}`, {
         headers: {
             'Content-Type': 'application/json'
         }

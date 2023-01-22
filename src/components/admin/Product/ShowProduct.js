@@ -14,6 +14,9 @@ const ShowProduct = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [sortBy, setSortBy] = useState('createAt');
+    const [order, setOrder] = useState('desc');
+    const [limit, setLimit] = useState(10);
     
     const UserLinks = () => {
         return (
@@ -23,7 +26,7 @@ const ShowProduct = () => {
 
     // Show categories
 
-    const DisplayProduct = () => {
+    const DisplayProduct = (sortBy, order, limit) => {
         getProducts()
             .then(response => {
                 setLoading(false);

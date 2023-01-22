@@ -6,7 +6,7 @@ import EditCategory from './admin/Category/EditCategory';
 import ShowCategory from './admin/Category/ShowCategory';
 import CreateProduct from './admin/Product/CreateProduct';
 import EditProduct from './admin/Product/EditProduct';
-import ProductDetails from './admin/Product/ProductDetails';
+import ProductDetails from './Home/ProductDetails';
 import ShowProduct from './admin/Product/ShowProduct';
 import Home from './Home/Home';
 import PageNotFound from './PageNotFound';
@@ -15,6 +15,7 @@ import PrivateRoute from './protectedRoutes/PrivateRoute';
 import Dashboard from './user/Dashboard';
 import Login from './user/Login';
 import Register from './user/Register';
+import SingleProduct from './admin/Product/SingleProduct';
 
 const Main = () => {
     return (
@@ -23,6 +24,7 @@ const Main = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
+                <Route path="/product/:id" exact component={ProductDetails} />
                 <PrivateRoute path='/user/dashboard' exact>
                     <Dashboard />
                 </PrivateRoute>
@@ -45,7 +47,7 @@ const Main = () => {
                     <CreateProduct />
                 </AdminRoute>
                 <AdminRoute path='/show/product/:id' exact>
-                    <ProductDetails />
+                    <SingleProduct />
                 </AdminRoute>
                 <AdminRoute path='/update/product/:id' exact>
                     <EditProduct />
