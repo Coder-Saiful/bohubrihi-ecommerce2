@@ -128,7 +128,7 @@ const CreateProduct = () => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Product Description:</label>
-                            <input type="text" className={`form-control`} name='description' value={description} onChange={handleChange} />
+                            <textarea type="text" className={`form-control`} name='description' value={description} onChange={handleChange} rows='5'></textarea>
                             <div className="text-danger">{error.description ? error.description + "!" : ''}</div>
                         </div>
                         <div className="mb-3">

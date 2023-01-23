@@ -3,9 +3,10 @@ import { getCategories } from '../../../api/apiCategory';
 import Layout from '../../Layout';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { userInfo } from '../../../utils/auth';
-import { createProduct } from '../../../api/apiProduct';
+import { updateProduct, getSingleProduct } from '../../../api/apiProduct';
+import Spinner from '../../Spinner';
 
 const EditProduct = () => {
     const [values, setValues] = useState({
@@ -15,39 +16,52 @@ const EditProduct = () => {
         quantity: '',
         category: '',
         formData: new FormData(),
-        error: false,
         disabled: false
     });
 
-    const {name, description, price, quantity, category, formData, error, disabled} = values;
+    const {name, description, price, quantity, category, formData, disabled} = values;
 
     const [categories, setCategories] = useState([]);
     const [catErr, setCatErr] = useState(false);
-    const [noImage, setNoImage] = useState(false);
+    const {id} = useParams();
+    const [product, setProduct] = useState({});
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getCategories()
             .then(response => {
                 setCategories(response.data);
-                setValues({
-                    ...values,
-                });
             })
             .catch(err => {
                 if (err.response) {
                     setCatErr(err.response);
-                    setValues({
-                        ...values,
-                    });
                 } else {
                     setCatErr({message: 'Failed to fetch categories!'})
-                    setValues({
-                        ...values,
-                    });
                 }
                 
             });
     }, []);
+
+    useEffect(() => {
+        getSingleProduct(id)
+            .then(response => {
+                setLoading(false);
+                setProduct(response.data);
+                setValues({
+                    ...values,
+                    ...response.data
+                });
+            })
+            .catch(err =>  {
+                setLoading(false);
+                if (err.response) {
+                    setError(err.response);
+                } else {
+                    setError({message: "Failed to fetch product details!"});
+                }
+            });
+    }, [id]);
 
     const handleChange = e => {
         const value = e.target.name == 'photo' ? e.target.files[0] : e.target.value;
@@ -71,35 +85,23 @@ const EditProduct = () => {
             ...values,
             disabled: true
         });
-        createProduct(userInfo().token, formData)
+        updateProduct(userInfo().token, formData, id)
             .then(response => {
                 submitBtn.textContent = "Create";
                 setValues({
                     ...values,
-                    name: '',
-                    description: '',
-                    price: '',
-                    quantity: '',
-                    category: '',
-                    error: false,
-                    disabled: false,
-                    formData: new FormData()
+                    disabled: false
                 });
-                setNoImage(false);
-                document.querySelector('.loginForm').reset();
                 toast.success(`${response.data.message}`, {autoClose: 3000});
             })
             .catch(err => {
                 if (err.response) {
                     setValues({
                         ...values,
-                        disabled: false,
-                        error: err.response.data
+                        disabled: false
                     });
                     if (err.response.data.message) {
                         toast.error(`${err.response.data.message}`, {autoClose: 3000});
-                    } else if (err.response.data.noImage) {
-                     setNoImage(err.response.data.noImage);  
                     }
                     submitBtn.textContent = "Create";
                 } else {
@@ -117,35 +119,31 @@ const EditProduct = () => {
     return (
         <Layout title="Update Product" classname="container">
             <ToastContainer />
-            <div className="row">
+            {product.name && (
+                <div className="row">
                 <div className="col-lg-7 col-md-10 m-auto">
                     <form className='loginForm' onSubmit={handleSubmit}>
                         <h1>Update Product</h1>
                         <div className="mb-3">
                             <label className="form-label">Product Name:</label>
                             <input type="text" className={`form-control`} name='name' value={name} onChange={handleChange} />
-                            <div className="text-danger">{error.name ? error.name + "!" : ''}</div>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Product Description:</label>
-                            <input type="text" className={`form-control`} name='description' value={description} onChange={handleChange} />
-                            <div className="text-danger">{error.description ? error.description + "!" : ''}</div>
+                            <textarea type="text" className={`form-control`} name='description' value={description} onChange={handleChange} rows='5'></textarea>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Product Price:</label>
                             <input type="text" className={`form-control`} name='price' value={price} onChange={handleChange} />
-                            <div className="text-danger">{error.price ? error.price + "!" : ''}</div>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Product Quantity:</label>
                             <input type="text" className={`form-control`} name='quantity' value={quantity} onChange={handleChange} />
-                            <div className="text-danger">{error.quantity ? error.quantity + "!" : ''}</div>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Product Category:</label>
                             <select name="category" className='form-select' value={category} onChange={handleChange}>
                                 <option value=''>--Select One--</option>
-                                
                                 {categories.length > 0 && categories.map(item => {
                                     return (
                                         <option value={item._id} key={item._id}>{item.name}</option>
@@ -153,12 +151,10 @@ const EditProduct = () => {
                                 })}
                             </select>
                             {catErr.message && <><div className='text-danger'>{catErr.message}</div></>}
-                            <div className="text-danger">{error.category ? error.category + "!" : ''}</div>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Product Photo:</label>
                             <input type="file" name="photo" className='form-control' onChange={handleChange} />
-                            <div className="text-danger">{noImage ? noImage + "!" : ''}</div>
                         </div>
                         <button type="submit" disabled={disabled} className="btn btn-primary submitBtn">Create</button>
                     </form>
@@ -167,6 +163,9 @@ const EditProduct = () => {
                     </p>
                 </div>
             </div>
+            )}
+            {loading ? <Spinner /> : ''}
+            {error.message ? <h2 className='text-center'>{error.message}</h2> : ''}
         </Layout>
     );  
 };

@@ -29,25 +29,26 @@ const ProductDetails = () => {
 
     return (
         <Layout title='Product Details' classname='container'>
-            
-            {product && (
                 <div className="row">
                 <div className="col-md-6">
-                    <div className="productImage">
-                        <img src={`${API}/product/photo/${id}`} alt={product.name} className='img-fluid' />
-                    </div>
+                    {product.name && (
+                        <div className="productImage">
+                            <img src={`${API}/product/photo/${id}`} alt={product.name} className='img-fluid' />
+                        </div>
+                    )}
                 </div>
                 <div className="col-md-6">
-                    <div className="productInfo">
-                        <h3>{product.name}</h3>
-                        {product.price ? <h5>&#2547; {product.price}</h5> : ""}
-                        {product.name ? <p>{product.quantity ? (<span className='badge rounded-pill text-bg-primary'>In Stock</span>) : (<span className='badge rounded-pill text-bg-danger'>Out of Stock</span>)}</p> : ''}
-                        <p>{product.description}</p>
-                        {product.quantity ? <><button className='btn btn-outline-primary'>Add to Cart</button></> : ''}
-                    </div>
+                    {product.name && (
+                        <div className="productInfo">
+                            <h4>{product.name}</h4>
+                            <h5>&#2547; {product.price}</h5>
+                            <p>{product.quantity ? (<span className='badge rounded-pill text-bg-primary'>In Stock</span>) : (<span className='badge rounded-pill text-bg-danger'>Out of Stock</span>)}</p>
+                            <p>{product.description}</p>
+                            {product.quantity ? <><button className='btn btn-outline-primary'>Add to Cart</button></> : ''}
+                        </div>
+                    )}
                 </div>
             </div>
-            )}
             <div>
                 {error.message ? <><h2 className='text-center'>{error.message}</h2></> : ''}
                 {loading ? <Spinner /> : ''}

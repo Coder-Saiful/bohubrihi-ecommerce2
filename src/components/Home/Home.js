@@ -12,7 +12,7 @@ const Home = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [sortBy, setSortBy] = useState('createAt');
+    const [sortBy, setSortBy] = useState('createdAt');
     const [order, setOrder] = useState('desc');
     const [limit, setLimit] = useState(10);
     // Show categories
@@ -46,12 +46,12 @@ const Home = () => {
             <div className="row" style={{ marginTop: "30px" }}>
                     {products.length > 0 && products.map(item => {
                         return (
-                            <div className="col-lg-3 col-md-6" key={item._id}>
+                            <div className="col-lg-3 col-md-6 mb-4" key={item._id}>
                                 <div className="singleProduct">
                                     <div className='card'>
                                         <img src={`${API}/product/photo/${item._id}`} alt="Not Found" className='card-img-top' />
                                         <div className="card-body">
-                                            <p>{item.name}</p>
+                                            <p className='productName'>{item.name}</p>
                                             <span>&#2547; {item.price}</span>
                                             <p>{item.quantity ? (<span className='badge rounded-pill text-bg-primary'>In Stock</span>) : (<span className='badge rounded-pill text-bg-danger'>Out of Stock</span>)}</p>
                                             <div className='d-flex justify-content-between'>
