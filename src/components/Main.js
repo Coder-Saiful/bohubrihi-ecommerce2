@@ -16,6 +16,7 @@ import Dashboard from './user/Dashboard';
 import Login from './user/Login';
 import Register from './user/Register';
 import SingleProduct from './admin/Product/SingleProduct';
+import Shop from './Shop/Shop';
 
 const Main = () => {
     return (
@@ -24,6 +25,8 @@ const Main = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
+                <Route path="/shop" exact component={Shop} />
+                <Route path="/shop/category/:categoryName" exact component={Shop} />
                 <Route path="/product/:id" exact component={ProductDetails} />
                 <PrivateRoute path='/user/dashboard' exact>
                     <Dashboard />
