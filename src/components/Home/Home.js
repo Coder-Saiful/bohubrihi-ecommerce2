@@ -46,7 +46,7 @@ const Home = () => {
             <div className="row" style={{ marginTop: "30px" }}>
                     {products.length > 0 && products.map(item => {
                         return (
-                            <div className="col-lg-3 col-md-6 mb-4" key={item._id}>
+                            <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={item._id}>
                                 <div className="singleProduct">
                                     <div className='card'>
                                         <img src={`${API}/product/photo/${item._id}`} alt="Not Found" className='card-img-top' />

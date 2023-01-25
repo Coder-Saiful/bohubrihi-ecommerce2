@@ -14,9 +14,9 @@ const ShowProduct = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [sortBy, setSortBy] = useState('createAt');
+    const [sortBy, setSortBy] = useState('createdAt');
     const [order, setOrder] = useState('desc');
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(100);
     
     const UserLinks = () => {
         return (
@@ -26,8 +26,8 @@ const ShowProduct = () => {
 
     // Show categories
 
-    const DisplayProduct = (sortBy, order, limit) => {
-        getProducts()
+    const DisplayProduct = () => {
+        getProducts(sortBy, order, limit)
             .then(response => {
                 setLoading(false);
                 setProducts(response.data);
@@ -47,7 +47,7 @@ const ShowProduct = () => {
 
     // Delete category
 
-    const DeleteCategory = (id, e) => {
+    const DeleteProduct = (id, e) => {
         if (e.target.className === 'fa fa-trash-o') {
             e.target.className = 'fa fa-spinner fa-spin';
         } else if (e.target.className === 'actionBtn deleteBtn text-danger me-3') {
@@ -137,7 +137,7 @@ const ShowProduct = () => {
                                         <td>
                                             <NavLink className='actionBtn text-success' to={`/show/product/${item._id}`}><i className="fa fa-eye" aria-hidden="true"></i></NavLink>
                                             <span className='actionBtn deleteBtn text-danger me-3' style={{ cursor: 'pointer' }} onClick={(e) => {
-                                                DeleteCategory(item._id, e);
+                                                DeleteProduct(item._id, e);
                                             }}><i className="fa fa-trash-o" aria-hidden="true"></i></span>
                                             <NavLink className='actionBtn' to={`/update/product/${item._id}`}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></NavLink>
                                         </td>

@@ -30,7 +30,7 @@ const ProductDetails = () => {
     return (
         <Layout title='Product Details' classname='container'>
                 <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 mb-4">
                     {product.name && (
                         <div className="productImage">
                             <img src={`${API}/product/photo/${id}`} alt={product.name} className='img-fluid' />
