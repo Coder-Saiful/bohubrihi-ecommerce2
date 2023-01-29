@@ -29,28 +29,19 @@ const CreateProduct = () => {
         getCategories()
             .then(response => {
                 setCategories(response.data);
-                setValues({
-                    ...values,
-                });
             })
             .catch(err => {
                 if (err.response) {
                     setCatErr(err.response);
-                    setValues({
-                        ...values,
-                    });
                 } else {
-                    setCatErr({message: 'Failed to fetch categories!'})
-                    setValues({
-                        ...values,
-                    });
+                    setCatErr({message: 'Failed to fetch categories!'});
                 }
                 
             });
     }, []);
 
     const handleChange = e => {
-        const value = e.target.name == 'photo' ? e.target.files[0] : e.target.value;
+        const value = e.target.name === 'photo' ? e.target.files[0] : e.target.value;
         formData.set(e.target.name, value);
         setValues({
             ...values,

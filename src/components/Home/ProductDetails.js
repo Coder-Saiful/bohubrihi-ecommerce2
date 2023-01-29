@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { getSingleProduct } from '../../api/apiProduct';
 import { API } from '../../utils/config';
 import Layout from '../Layout';
@@ -29,6 +29,16 @@ const ProductDetails = () => {
 
     return (
         <Layout title='Product Details' classname='container'>
+                {product.name && <>
+                    <nav aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item"><NavLink to="/">Home</NavLink></li>
+                            <li className="breadcrumb-item"><NavLink to="/shop">Shop</NavLink></li>
+                            <li className="breadcrumb-item"><NavLink to={`/shop/category/${product.category.name}`}>{product.category.name}</NavLink></li>
+                            <li className="breadcrumb-item active" aria-current="page">{product.name}</li>
+                        </ol>
+                    </nav>
+                </>}
                 <div className="row">
                 <div className="col-md-6 mb-4">
                     {product.name && (

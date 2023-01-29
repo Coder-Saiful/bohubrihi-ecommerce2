@@ -26,7 +26,7 @@ const Main = () => {
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
                 <Route path="/shop" exact component={Shop} />
-                <Route path="/shop/category/:categoryName" exact component={Shop} />
+                <Route path="/shop/category" exact component={Shop} />
                 <Route path="/product/:id" exact component={ProductDetails} />
                 <PrivateRoute path='/user/dashboard' exact>
                     <Dashboard />

@@ -31,7 +31,7 @@ const Category = () => {
                     <li className='list-group-item'><NavLink className='nav-link' to='/shop'>All Products</NavLink></li>
                     {categories.length > 0 && categories.map(item => {
                         return (
-                            <li className='list-group-item text-decoration-none' key={item._id}><NavLink className='nav-link' to={`/shop/category/${item.name}`}>{item.name}</NavLink></li>
+                            <li className='list-group-item text-decoration-none' key={item._id}><NavLink className='nav-link' to={`/shop/category?name=${item.name}`}>{item.name}</NavLink></li>
                         )
                     })}
                 </ul>

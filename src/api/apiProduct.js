@@ -40,3 +40,19 @@ export const deleteProduct = (token, id) => {
         }
     });
 }
+
+export const getFilteredProducts = (order, sortBy, limit, skip, filters) => {
+    const data = {
+        order: order,
+        sortBy: sortBy,
+        limit: limit,
+        skip: skip,
+        filters: filters
+    }
+    
+    return axios.post(`${API}/product/filter`, data, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}

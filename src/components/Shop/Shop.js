@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Layout from '../Layout';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { getProducts } from '../../api/apiProduct';
 import Spinner from '../Spinner';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,10 +15,13 @@ const Shop = () => {
     const [sortBy, setSortBy] = useState('createdAt');
     const [order, setOrder] = useState('desc');
     const [limit, setLimit] = useState(20);
-    const {categoryName} = useParams();
-    if (categoryName) {
-        console.log(categoryName);
-    }
+    const { search } = useLocation();
+
+  const searchParams = useMemo(() => new URLSearchParams(search), [search]);
+  if (searchParams.get('name')) {
+    alert(searchParams.get('name'))
+  }
+  
     // Show categories
 
     const DisplayProduct = () => {
@@ -44,8 +47,10 @@ const Shop = () => {
         DisplayProduct();
     }, []);
 
+    
+
     return (
-        <Layout title="Product" classname="container-fluid">
+        <Layout title="Shop" classname="container-fluid">
             <ToastContainer />
             <div className="row" style={{ marginTop: "30px" }}>
                     <Category />

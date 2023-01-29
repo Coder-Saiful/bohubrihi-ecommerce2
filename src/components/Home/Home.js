@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../Layout';
 import { NavLink } from 'react-router-dom';
-import { getProducts, getSingleProduct } from '../../api/apiProduct';
+import { getProducts, getFilteredProducts } from '../../api/apiProduct';
+import { getCategories } from '../../api/apiCategory';
 import Spinner from '../Spinner';
-import dateFormat from "dateformat";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { API } from '../../utils/config';
+import CheckBox from './CheckBox';
 
 const Home = () => {
     const [products, setProducts] = useState([]);
@@ -14,7 +15,14 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState('createdAt');
     const [order, setOrder] = useState('desc');
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(12);
+    const [skip, setSkip] = useState(0);
+    const [categories, setCategories] = useState([]);
+    const [catErr, setCatErr] = useState(false);
+    const [filters, setFilters] = useState({
+        category: [],
+        price: []
+    });
     // Show categories
 
     const DisplayProduct = () => {
@@ -36,12 +44,73 @@ const Home = () => {
             });
     }
 
+    const DisplayCategory = () => {
+        getCategories()
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(err => {
+                if (err.response) {
+                    setCatErr(err.response);
+                } else {
+                    setCatErr({message: 'Failed to fetch categories!'});
+                }
+                
+            });
+    }
+
     useEffect(() => {
         DisplayProduct();
-    }, []);
+        DisplayCategory();
+    }, [navigator]);
+
+    const handleFilters = (myFilters, filterBy) => {
+        const newFilters = {...filters};
+        if (filterBy === 'category') {
+            newFilters[filterBy] = myFilters;
+        }
+
+        setFilters(newFilters);
+        setLoading(true);
+        setProducts({});
+        getFilteredProducts(order, filterBy, 0, skip, newFilters)
+            .then(response => {
+                setLoading(false);
+                setProducts(response.data);
+                if (response.data.noData) {
+                    setError(response.data);
+                }
+            })
+            .catch(err => {
+                setLoading(false);
+                if (err.response) {
+                    setError(err.response);
+                } else {
+                    setError({message: 'Failed to fetch products!'})
+                }
+            });
+    }
+
+    const showFilters = () => {
+        return (
+            <>
+                <div className="row">
+                    <div className="col-12">
+                        <h5>Filter By Categories:</h5>
+                        {catErr.message ? <><h6>{catErr.message}</h6></> : ''}
+                        <ul className='p-0'>
+                            <CheckBox categories={categories} handleFilters={(myFilters) => handleFilters(myFilters, 'category')} />
+                        </ul>
+                    </div>
+                </div>
+            </>
+        )
+    }
+
 
     return (
-        <Layout title="Product" classname="container-fluid">
+        <Layout title="Bohubrihi Ecommerce" classname="container-fluid">
+            {categories.length > 0 ? showFilters() : <><h5>Category Loading...</h5></>}
             <ToastContainer />
             <div className="row" style={{ marginTop: "30px" }}>
                     {products.length > 0 && products.map(item => {

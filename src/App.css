@@ -9,7 +9,7 @@ p {
 }
 
 .btn:focus,
-.form-control:focus {
+.form-control:focus, .form-check-input:focus {
     box-shadow: none;
 }
 
@@ -85,7 +85,6 @@ form.loginForm h1:before {
 
 /* 404 not found css start */
 
-.row.pageNotFound text {}
 
 .pageNotFound .text h1 {
     color: tomato;

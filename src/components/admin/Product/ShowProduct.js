@@ -16,7 +16,7 @@ const ShowProduct = () => {
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState('createdAt');
     const [order, setOrder] = useState('desc');
-    const [limit, setLimit] = useState(100);
+    const [limit, setLimit] = useState(0);
     
     const UserLinks = () => {
         return (
